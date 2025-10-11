@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/generated/prisma"
+}
+
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output   = "../../scripts/erd.png"
+//   theme                     = "default"
+//   ignoreEnums               = true
+//   includeRelationFromFields = true
+//   disabled                  = false
+//   tableOnly                 = false
+// }
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id                 String   @id @default(cuid())
+  nombreCompleto     String   @map("nombre_completo") @db.VarChar(255)
+  dpi                String   @unique @db.VarChar(20)
+  fechaNacimiento    DateTime @map("fecha_nacimiento") @db.Date
+  sexo               Sexo
+  paisNacimiento     String   @map("pais_nacimiento") @db.VarChar(100)
+  activo             Boolean  @default(true)
+  fechaCreacion      DateTime @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime @updatedAt @map("fecha_actualizacion")
+  cuentas            Cuenta[]
+
+  @@map("clientes")
+}
+
+model Producto {
+  id                 String         @id @default(cuid())
+  nombre             String         @db.VarChar(100)
+  tasaInteres        Decimal        @map("tasa_interes") @db.Decimal(5, 4)
+  tipoProducto       TipoProducto   @map("tipo_producto")
+  calculoInteres     CalculoInteres @map("calculo_interes")
+  fechaCreacion      DateTime       @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime       @updatedAt @map("fecha_actualizacion")
+  activo             Boolean        @default(true)
+  cuentas            Cuenta[]
+
+  @@map("productos")
+}
+
+model Cuenta {
+  id                 String              @id @default(cuid())
+  numeroCuenta       String              @unique @map("numero_cuenta") @db.VarChar(20)
+  clienteId          String              @map("cliente_id")
+  productoId         String              @map("producto_id")
+  estatus            EstatusCuenta       @default(ACTIVA)
+  saldo              Decimal             @default(0.00) @db.Decimal(15, 2)
+  fechaCreacion      DateTime            @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime            @updatedAt @map("fecha_actualizacion")
+  cliente            Cliente             @relation(fields: [clienteId], references: [id])
+  producto           Producto            @relation(fields: [productoId], references: [id])
+  transacciones      TransaccionCuenta[]
+
+  @@map("cuentas")
+}
+
+model CodigoOperacion {
+  id                 String              @id @default(cuid())
+  codigo             String              @unique @db.VarChar(10)
+  descripcion        String              @db.VarChar(255)
+  tipoOperacion      TipoOperacion       @map("tipo_operacion")
+  fechaCreacion      DateTime            @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime            @updatedAt @map("fecha_actualizacion")
+  activo             Boolean             @default(true)
+  transacciones      TransaccionCuenta[]
+
+  @@map("codigos_operacion")
+}
+
+model TransaccionCuenta {
+  id                String          @id @default(cuid())
+  cuentaId          String          @map("cuenta_id")
+  codigoOperacionId String          @map("codigo_operacion_id")
+  monto             Decimal         @db.Decimal(15, 2)
+  fechaTransaccion  DateTime        @map("fecha_transaccion")
+  fechaCreacion     DateTime        @default(now()) @map("fecha_creacion")
+  cuenta            Cuenta          @relation(fields: [cuentaId], references: [id])
+  codigoOperacion   CodigoOperacion @relation(fields: [codigoOperacionId], references: [id])
+
+  @@map("transacciones_cuenta")
+}
+
+// Tipos de datos personalizados
+enum Sexo {
+  MASCULINO
+  FEMENINO
+}
+
+enum TipoProducto {
+  AHORROS
+  MONETARIO
+}
+
+enum CalculoInteres {
+  DIARIO
+  MENSUAL
+}
+
+enum EstatusCuenta {
+  ACTIVA
+  INACTIVA
+}
+
+enum TipoOperacion {
+  CREDITO
+  DEBITO
+}

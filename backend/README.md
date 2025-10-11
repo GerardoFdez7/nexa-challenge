@@ -1,75 +1,180 @@
-# nexa-api
+<p align="center">
+<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/>
+  </a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="40" alt="Nest Logo" /></a>
+  <a href="https://www.docker.com/" target="_blank" rel="noreferrer">
+    <img src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg" alt="docker" width="50" height="50"/>
+  </a>
+  <a href="https://www.mysql.com/" target="_blank" rel="noreferrer">
+    <img src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg" alt="mysql" width="40" height="40"/>
+  </a>
+  <a href="https://www.prisma.io/" target="_blank" rel="noreferrer">
+    <img src="https://cdn.worldvectorlogo.com/logos/prisma-3.svg" alt="prisma" width="40" height="40"/>
+  </a>
+  <a href="https://mochajs.org/" target="_blank" rel="noreferrer">
+    <img src="https://www.vectorlogo.zone/logos/mochajs/mochajs-icon.svg" alt="mocha" width="40" height="40"/>
+  </a>
+  <a href="https://nodejs.org/en" target="_blank" rel="noreferrer">
+    <img src="https://upload.vectorlogo.zone/logos/nodejs/images/eca9ff97-5734-46c4-b8a1-621819eaeaa9.svg" alt="nodejs" width="50" height="50"/>
+  </a>
+  <a href="https://www.npmjs.com/" target="_blank" rel="noreferrer">
+    <img src="https://www.vectorlogo.zone/logos/npmjs/npmjs-ar21.svg" alt="npm" width="60" height="40"/>
+  </a> 
+</p>
 
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+# 🏦 Nexa Banking API
 
-## Install dependencies
+API REST para sistema bancario desarrollada con **LoopBack 4**, **TypeScript** y **MySQL**.
 
-By default, dependencies were installed when this application was generated.
-Whenever dependencies in `package.json` are changed, run the following command:
+## 🚀 Inicio Rápido
 
-```sh
+### 📋 Prerrequisitos
+
+- **Node.js** >= 18.x
+- **Docker** y **Docker Compose**
+- **npm** >= 8.x
+
+### 🐳 Ejecución con Docker (Recomendado)
+
+```bash
+# Clonar el repositorio
+git clone <repository-url>
+cd nexa-challenge/backend
+
+# Levantar servicios (MySQL + phpMyAdmin + API)
+docker-compose up -d
+
+# Verificar servicios
+docker-compose ps
+```
+
+**URLs disponibles:**
+
+- 🌐 **API**: http://localhost:3000
+- 📊 **phpMyAdmin**: http://localhost:8080
+- 📖 **API Explorer**: http://localhost:3000/explorer
+
+### 💻 Ejecución Local
+
+```bash
+# Instalar dependencias
 npm install
-```
 
-To only install resolved dependencies in `package-lock.json`:
+# Configurar variables de entorno
+cp .env.example .env
 
-```sh
-npm ci
-```
+# Levantar solo MySQL con Docker
+docker-compose up mysql -d
 
-## Run the application
+# Actualizar .env para conexión local
+DATABASE_URL="mysql://nexa_user:nexa_password@localhost:3307/nexa_banking"
 
-```sh
+# Ejecutar migraciones
+npm run migrate
+
+# Iniciar aplicación
 npm start
 ```
 
-You can also run `node .` to skip the build step.
+## 🏗️ Arquitectura
 
-Open http://127.0.0.1:3000 in your browser.
+### 📁 Estructura del Proyecto
 
-## Rebuild the project
-
-To incrementally build the project:
-
-```sh
-npm run build
+```
+src/
+├── application/          # Capa de Aplicación (CQRS)
+│   ├── commands/         # Comandos (Command handlers)
+│   └── queries/          # Consultas (Query handlers)
+├── domain/               # Capa de Dominio
+│   ├── entities/         # Entidades de negocio y Factories
+│   ├── repositories/     # Interfaces de repositorios
+├── infrastructure/       # Capa de Infraestructura
+│   ├── repositories/     # Implementaciones de repositorios
+│   └── database/         # Conexión singleton a MySQL
+└── controllers/          # Controladores REST
 ```
 
-To force a full build by cleaning up cached artifacts:
+### 🎯 Patrones de Diseño Implementados
 
-```sh
-npm run rebuild
+#### **CQRS (Command Query Responsibility Segregation)**
+
+- **Commands**: Operaciones de escritura (crear, actualizar, eliminar)
+- **Queries**: Operaciones de lectura optimizadas
+- **Separación clara** entre lógica de comando y consulta
+
+#### **Repository Pattern**
+
+- **Abstracción** de la capa de datos
+- **Interfaces** en el dominio, **implementaciones** en infraestructura
+- **Facilita testing** y cambio de tecnologías
+
+#### **Factory Pattern**
+
+- **Creación controlada** de entidades complejas
+- **Validaciones de negocio** centralizadas
+- **Encapsulación** de lógica de construcción
+
+## 🗄️ Base de Datos
+
+### **Inicialización Automática**
+
+Los scripts SQL se ejecutan automáticamente al levantar MySQL:
+
+- `sql/ddl.sql` - Estructura de tablas
+- `sql/dml.sql` - Datos de prueba
+
+### **Diagrama ER**
+
+```bash
+# Generar diagrama entidad-relación
+npx prisma generate
 ```
 
-## Fix code style and formatting issues
+📄 Diagrama disponible en: `scripts/erd.png`
 
-```sh
-npm run lint
+### **Comandos**
+
+```bash
+npx prisma studio            # Interfaz gráfica de BD
+npx prisma db seed          # Ejecutar seeders
+npx prisma generate         # Generar cliente + diagrama ER
 ```
 
-To automatically fix such issues:
+## 📊 Endpoints Principales
 
-```sh
-npm run lint:fix
+| Método | Endpoint                       | Descripción                |
+| ------ | ------------------------------ | -------------------------- |
+| `GET`  | `/clientes`                    | Listar todos los clientes  |
+| `GET`  | `/clientes/{id}/transacciones` | Transacciones por cliente  |
+| `GET`  | `/productos`                   | Listar productos bancarios |
+| `GET`  | `/cuentas`                     | Listar cuentas             |
+
+📖 **Documentación completa**: http://localhost:3000/explorer
+
+## 🔧 Configuración
+
+### **Variables de Entorno**
+
+```env
+DATABASE_URL="mysql://user:password@host:port/database"
+NODE_ENV=development
+PORT=3000
 ```
 
-## Other useful commands
+### **Docker Compose Services**
 
-- `npm run migrate`: Migrate database schemas for models
-- `npm run openapi-spec`: Generate OpenAPI spec into a file
-- `npm run docker:build`: Build a Docker image for this application
-- `npm run docker:run`: Run this application inside a Docker container
+- **mysql**: Base de datos MySQL 8.0
+- **phpmyadmin**: Administrador web de BD
+- **backend**: API LoopBack 4
 
-## Tests
+## 🏛️ Tecnologías
 
-```sh
-npm test
-```
+- **Framework**: LoopBack 4
+- **Lenguaje**: TypeScript
+- **Base de Datos**: MySQL 8.0
+- **ORM**: Prisma
+- **Contenedores**: Docker & Docker Compose
+- **Documentación**: OpenAPI 3.0
 
-## What's next
-
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
-understand how you can continue to add features to this application.
-
-[![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+---

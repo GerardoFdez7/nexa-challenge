@@ -33,8 +33,13 @@
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
+    "start:dev": "npm run build && npm start",
+    "docker": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run clean && npm run build",
+    "db:seed": "npx ts-node prisma/seed.ts"
   },
   "repository": {
     "type": "git",
@@ -54,15 +59,20 @@
     "@loopback/repository": "^8.0.4",
     "@loopback/rest": "^15.0.5",
     "@loopback/rest-explorer": "^8.0.5",
+    "@prisma/client": "^6.17.1",
+    "mysql2": "^3.15.2",
+    "prisma": "^6.17.1",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@loopback/build": "^12.0.4",
-    "source-map-support": "^0.5.21",
+    "@loopback/eslint-config": "^16.0.1",
     "@loopback/testlab": "^8.0.4",
     "@types/node": "^16.18.126",
-    "@loopback/eslint-config": "^16.0.1",
     "eslint": "^8.57.1",
+    "prisma-erd-generator": "^2.1.0",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.2",
     "typescript": "~5.2.2"
   }
 }

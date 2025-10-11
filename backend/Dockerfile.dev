@@ -1,0 +1,34 @@
+# Dockerfile para desarrollo - Nexa Banking Backend
+FROM node:18-alpine
+
+# Instalar herramientas necesarias
+RUN apk add --no-cache bash
+
+# Crear usuario no-root
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+# Establecer directorio de trabajo
+WORKDIR /home/node/app
+
+# Cambiar propietario del directorio
+RUN chown -R nextjs:nodejs /home/node/app
+USER nextjs
+
+# Copiar archivos de dependencias
+COPY --chown=nextjs:nodejs package*.json ./
+
+# Instalar todas las dependencias (incluyendo devDependencies para desarrollo)
+RUN npm ci
+
+# Copiar el código fuente
+COPY --chown=nextjs:nodejs . .
+
+# Generar el cliente de Prisma
+RUN npx prisma generate
+
+# Exponer el puerto
+EXPOSE 3000
+
+# Comando para desarrollo con hot reload
+CMD ["npm", "run", "start:dev"]
