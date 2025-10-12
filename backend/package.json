@@ -31,8 +31,8 @@
     "migrate": "node ./dist/migrate",
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
-    "prestart": "npm run build && npx prisma migrate deploy && npx prisma generate",
-    "start": "node -r source-map-support/register dist/index.js",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
     "start:dev": "npm run build && npm start",
     "docker": "docker-compose up -d",
     "docker:stop": "docker-compose down",
@@ -41,7 +41,6 @@
     "rebuild": "npm run clean && npm run build",
     "db:seed": "npx ts-node prisma/seed.ts"
   },
-
   "repository": {
     "type": "git",
     "url": ""
