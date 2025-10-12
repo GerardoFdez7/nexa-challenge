@@ -32,7 +32,7 @@
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run build && npx prisma migrate deploy && npx prisma generate",
-    "start": "node -r source-map-support/register .",
+    "start": "node -r source-map-support/register dist/index.js",
     "start:dev": "npm run build && npm start",
     "docker": "docker-compose up -d",
     "docker:stop": "docker-compose down",
