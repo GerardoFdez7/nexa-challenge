@@ -65,7 +65,12 @@
 
 ---
 
-## 🚀 Inicio Rápido con Docker Compose
+## 🚀 Acceso a la Aplicación en Vivo
+
+La aplicación está desplegada y disponible en producción! https://nexa.caribbeandevelopers.space
+
+
+## ⚡ Inicio Rápido con Docker Compose
 
 ### 📋 Prerrequisitos
 
@@ -73,7 +78,7 @@
 - **Git** para clonar el repositorio
 - Puerto **3000** (Frontend), **3001** (Backend) y **3306** (MySQL) disponibles
 
-### ⚡ Levantamiento Completo en 2 Pasos
+### Levantamiento Completo en 2 Pasos
 
 ```bash
 # 1️⃣ Clonar el repositorio
@@ -109,7 +114,7 @@ El sistema se inicializa automáticamente con:
 
 ```
                     ┌─────────────────────────────┐
-                    │   🎯 PRESENTATION LAYER     |
+                    │     PRESENTATION LAYER      |
                     │  ┌─────────────────────┐    │
                     │  │   Controllers REST  │    │
                     │  └─────────────────────┘    │
@@ -117,7 +122,7 @@ El sistema se inicializa automáticamente con:
                                     │
                                     ▼
             ┌───────────────────────────────────────────┐
-            │        ⚡ APPLICATION LAYER - CQRS        │
+            │          APPLICATION LAYER - CQRS         │
             │  ┌─────────────────┐  ┌─────────────────┐ │
             │  │    Commands     │  │     Queries     │ │
             │  │   (Write Ops)   │  │   (Read Ops)    │ │
@@ -126,7 +131,7 @@ El sistema se inicializa automáticamente con:
                                     │
                                     ▼
     ┌─────────────────────────────────────────────────────────────────┐
-    │                         🏛️ DOMAIN LAYER                         │
+    │                           DOMAIN LAYER                          │
     │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
     │  │  Entities   │  │  Factories  │  │  Repository Interfaces  │  │
     │  │ (Business)  │  │ (Creation)  │  │    (Contracts)          │  │
@@ -135,7 +140,7 @@ El sistema se inicializa automáticamente con:
                                     │
                                     ▼
     ┌─────────────────────────────────────────────────────────────────┐
-    │                🔧 INFRASTRUCTURE LAYER                          │
+    │                  INFRASTRUCTURE LAYER                           │
     │  ┌─────────────────────┐    ┌─────────────────────────────────┐ │
     │  │   Repository Impl   │    │     Database Connection         │ │
     │  │   (Data Access)     │    │      (Prisma ORM)               │ │
