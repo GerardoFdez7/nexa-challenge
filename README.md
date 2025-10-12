@@ -67,8 +67,7 @@
 
 ## 🚀 Acceso a la Aplicación en Vivo
 
-La aplicación está desplegada y disponible en producción! https://nexa.caribbeandevelopers.space
-
+La aplicación está desplegada y disponible en producción! [nexa-challenge.vercel.app](https://nexa-challenge.vercel.app)
 
 ## ⚡ Inicio Rápido con Docker Compose
 
@@ -85,22 +84,23 @@ La aplicación está desplegada y disponible en producción! https://nexa.caribb
 git clone <repository-url>
 
 # 2️⃣ Levantar todos los servicios
-docker-compose up 
+docker-compose up
 ```
 
 ### 🌐 URLs de Acceso
 
 Una vez levantados los servicios, podrás acceder a:
 
-| Servicio | URL | Descripción |
-|----------|-----|-------------|
-| 🎨 **Frontend** | http://localhost:3000 | Aplicación web principal |
-| 🔧 **Backend API** | http://localhost:3001 | API REST + Documentación |
+| Servicio            | URL                            | Descripción                       |
+| ------------------- | ------------------------------ | --------------------------------- |
+| 🎨 **Frontend**     | http://localhost:3000          | Aplicación web principal          |
+| 🔧 **Backend API**  | http://localhost:3001          | API REST + Documentación          |
 | 📖 **API Explorer** | http://localhost:3001/explorer | Documentación interactiva OpenAPI |
 
 ### 📊 Datos de Prueba
 
 El sistema se inicializa automáticamente con:
+
 - ✅ **5 clientes** de ejemplo
 - ✅ **10 cuentas bancarias** (ahorros y corrientes)
 - ✅ **15 transacciones** de prueba
@@ -151,16 +151,19 @@ El sistema se inicializa automáticamente con:
 ### 🎯 Patrones de Diseño Implementados
 
 #### **🔄 CQRS (Command Query Responsibility Segregation)**
+
 - **Commands**: Operaciones de escritura (crear, actualizar, eliminar)
 - **Queries**: Operaciones de lectura optimizadas
 - **Separación clara** entre lógica de comando y consulta
 
 #### **📚 Repository Pattern**
+
 - **Abstracción** de la capa de datos
 - **Interfaces** en el dominio, **implementaciones** en infraestructura
 - **Facilita testing** y cambio de tecnologías
 
 #### **🏭 Factory Pattern**
+
 - **Creación controlada** de entidades complejas
 - **Validaciones de negocio** centralizadas
 - **Encapsulación** de lógica de construcción
@@ -203,6 +206,7 @@ frontend/app/components/
 ### 🏗️ Arquitectura del Frontend
 
 #### **🎯 Tecnologías Principales**
+
 - **⚡ Next.js 15**: Framework React con App Router
 - **⚛️ React 18**: Biblioteca de UI con Server Components
 - **🎨 Tailwind CSS**: Framework de utilidades CSS
@@ -211,6 +215,7 @@ frontend/app/components/
 - **📊 Recharts**: Gráficos y visualizaciones interactivas
 
 #### **📱 Características de UX/UI**
+
 - **🎨 Design System**: Colores consistentes (#9521B6 púrpura, #011843 azul marino)
 - **📱 Responsive Design**: Optimizado para móvil, tablet y desktop
 - **♿ Accesibilidad**: Componentes ARIA-compliant
@@ -230,6 +235,7 @@ frontend/app/components/
 ## 🛠️ Stack Tecnológico Completo
 
 ### 🔧 Backend
+
 - **Framework**: LoopBack 4
 - **Lenguaje**: TypeScript
 - **Base de Datos**: MySQL 8.0
@@ -238,6 +244,7 @@ frontend/app/components/
 - **Testing**: Mocha + Chai
 
 ### 🎨 Frontend
+
 - **Framework**: Next.js 15
 - **UI Library**: React 18
 - **Styling**: Tailwind CSS
@@ -246,6 +253,7 @@ frontend/app/components/
 - **Validation**: Zod
 
 ### 🐳 DevOps & Deployment
+
 - **Containerización**: Docker & Docker Compose
 - **Base de Datos**: MySQL 8.0
 
