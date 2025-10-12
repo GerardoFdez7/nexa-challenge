@@ -28,10 +28,6 @@ Thumbs.db
 .git
 .gitignore
 
-# Docker
-Dockerfile*
-docker-compose*
-
 # Logs
 logs
 *.log
