@@ -20,6 +20,18 @@ if (require.main === module) {
     rest: {
       port: +(process.env.PORT ?? 3001),
       host: process.env.HOST ?? "0.0.0.0",
+      // CORS configuration for multiple domains
+      cors: {
+        origin: [
+          'http://localhost:3000',
+          'https://nexa.vercel.app',
+          'https://nexa.caribbeandevelopers.space',
+          ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [])
+        ],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+        credentials: true,
+      },
       // The `gracePeriodForClose` provides a graceful close for http/https
       // servers with keep-alive clients. The default value is `Infinity`
       // (don't force-close). If you want to immediately destroy all sockets

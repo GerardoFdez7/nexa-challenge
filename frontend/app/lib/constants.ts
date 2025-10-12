@@ -1,6 +1,15 @@
 // Constantes de la aplicación
 
-export const API_BASE_URL = "http://localhost:3001"
+// Environment-based API configuration
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"
+
+// Additional configuration for different environments
+export const APP_CONFIG = {
+  apiUrl: API_BASE_URL,
+  environment: process.env.NODE_ENV || 'development',
+  isDevelopment: process.env.NODE_ENV === 'development',
+  isProduction: process.env.NODE_ENV === 'production',
+}
 
 export const CODIGOS_OPERACION: Array<{
   codigo: string
