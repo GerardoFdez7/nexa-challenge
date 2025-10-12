@@ -1,8 +1,13 @@
 -- Script DDL para creación de base de datos 
 
 -- Crear la base de datos
-CREATE DATABASE IF NOT EXISTS nexa_banking;
-USE nexa_banking;
+CREATE DATABASE IF NOT EXISTS nexa_bank;
+USE nexa_bank;
+
+-- Crear usuario y otorgar permisos
+CREATE USER IF NOT EXISTS 'nexa_user'@'%' IDENTIFIED BY 'nexa_password';
+GRANT ALL PRIVILEGES ON nexa_bank.* TO 'nexa_user'@'%';
+FLUSH PRIVILEGES;
 
 -- Tabla de clientes
 CREATE TABLE clientes (

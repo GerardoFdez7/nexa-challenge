@@ -1,0 +1,66 @@
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: nexa-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: nexa_bank
+      MYSQL_USER: nexa_user
+      MYSQL_PASSWORD: nexa_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./scripts/ddl.sql:/docker-entrypoint-initdb.d/01-ddl.sql
+      - ./scripts/dml.sql:/docker-entrypoint-initdb.d/02-dml.sql
+    networks:
+      - nexa-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nexa-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "mysql://nexa_user:nexa_password@mysql:3306/nexa_bank"
+      PORT: 3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - nexa-network
+
+  # Frontend Next.js
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nexa-frontend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - nexa-network
+
+volumes:
+  mysql_data:
+
+networks:
+  nexa-network:
+    driver: bridge

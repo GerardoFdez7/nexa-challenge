@@ -17,6 +17,9 @@
   <a href="https://ui.shadcn.com/" target="_blank" rel="noreferrer">
     <img src="https://ui.shadcn.com/favicon.ico" alt="shadcn" width="40" height="40"/>
   </a>
+  <a href="https://www.docker.com/" target="_blank" rel="noreferrer">
+    <img src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg" alt="docker" width="50" height="50"/>
+  </a>
   <a href="https://nodejs.org/en" target="_blank" rel="noreferrer">
     <img src="https://upload.vectorlogo.zone/logos/nodejs/images/eca9ff97-5734-46c4-b8a1-621819eaeaa9.svg" alt="nodejs" width="50" height="50"/>
   </a>
@@ -65,6 +68,29 @@ npm run dev
 - **Color Secundario**: #011843 (Azul marino profundo)
 - **Tipografía**: Inter
 - **Modo**: Solo modo claro (light mode)
+
+## 🎨 Arquitectura: Atomic Design
+
+El proyecto implementa el patrón **Atomic Design** para organizar los componentes de UI de manera escalable y mantenible:
+
+### 🔬 Estructura de Componentes
+
+```
+app/components/
+├── 🔬 atoms/              # Elementos básicos (Button, Input, Icon, Badge)
+├── 🧬 molecules/          # Combinaciones simples (SearchBox, Card, FormField)
+├── 🦠 organisms/          # Componentes complejos (Header, DataTable, Dashboard)
+├── 📄 templates/          # Layouts de página y estructuras
+└── 🌍 pages/              # Páginas completas con datos
+```
+
+### ⚛️ Ventajas del Atomic Design
+
+- **🔧 Reutilización**: Componentes modulares y consistentes
+- **🧪 Testing**: Fácil testing unitario de componentes aislados
+- **📚 Mantenimiento**: Estructura clara y autodocumentada
+- **🚀 Escalabilidad**: Fácil extensión y modificación
+- **👥 Colaboración**: Lenguaje común entre diseño y desarrollo
 
 ## 📱 Rutas de la Aplicación
 

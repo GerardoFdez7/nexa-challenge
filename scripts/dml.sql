@@ -1,6 +1,6 @@
 -- Script para inserción de datos de prueba 
 
-USE nexa_banking;
+USE nexa_bank;
 
 -- Insertar clientes de prueba
 INSERT INTO clientes (id, nombre_completo, dpi, fecha_nacimiento, sexo, pais_nacimiento, activo, fecha_creacion, fecha_actualizacion) VALUES
