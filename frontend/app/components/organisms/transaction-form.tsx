@@ -20,8 +20,7 @@ const transaccionSchema = z.object({
   numeroCuenta: z
     .string()
     .min(10, "El número de cuenta debe tener al menos 10 dígitos")
-    .max(16, "El número de cuenta no puede tener más de 16 dígitos")
-    .regex(/^\d+$/, "El número de cuenta solo debe contener dígitos"),
+    .max(16, "El número de cuenta no puede tener más de 16 dígitos"),
   codigoOperacion: z.string().min(1, "Selecciona un código de operación"),
   monto: z
     .number({ invalid_type_error: "El monto debe ser un número" })

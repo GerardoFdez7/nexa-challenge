@@ -21,13 +21,15 @@ interface SaldosChartProps {
 export function SaldosChart({ cuentas }: SaldosChartProps) {
   // Agrupar saldos por tipo de producto
   const data = cuentas.reduce((acc, cuenta) => {
-    const tipo = cuenta.tipoProducto;
+    const tipo = cuenta.tipoCuenta;
+    const saldo = Number(cuenta.saldoCuenta) || 0; // Asegurar que sea número
+    
     const existing = acc.find((item) => item.tipo === tipo);
     if (existing) {
-      existing.saldo += cuenta.saldo;
+      existing.saldo += saldo;
       existing.cantidad += 1;
     } else {
-      acc.push({ tipo, saldo: cuenta.saldo, cantidad: 1 });
+      acc.push({ tipo, saldo: saldo, cantidad: 1 });
     }
     return acc;
   }, [] as Array<{ tipo: string; saldo: number; cantidad: number }>);

@@ -47,7 +47,10 @@ export default function DashboardPage() {
 
   // Calcular métricas
   const totalCuentas = cuentas.length;
-  const saldoTotal = cuentas.reduce((sum, cuenta) => sum + cuenta.saldo, 0);
+  const saldoTotal = cuentas.reduce(
+    (sum, cuenta) => sum + Number(cuenta.saldoCuenta),
+    0
+  );
   const clientesUnicos = new Set(cuentas.map((c) => c.nombreCliente)).size;
 
   // Transacciones del día

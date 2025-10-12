@@ -14,7 +14,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Nexa - Banco Digital",
+  title: "Nexa",
   description: "Plataforma de banca digital moderna y segura",
 }
 

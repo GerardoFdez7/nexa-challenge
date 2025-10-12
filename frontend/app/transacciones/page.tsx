@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { apiService } from "@/services/api";
 import type { Transaccion } from "@/lib/types";
 import { formatCurrency, formatDateTime } from "@/lib/utils/format";
-import { Plus, Filter } from "lucide-react";
+import { Plus } from "lucide-react";
 
 export default function TransaccionesPage() {
   const [transacciones, setTransacciones] = useState<Transaccion[]>([]);
@@ -55,7 +55,7 @@ export default function TransaccionesPage() {
     );
 
     if (tipoFilter !== "all") {
-      filtered = filtered.filter((t) => t.tipoOperacion === tipoFilter);
+      filtered = filtered.filter((t) => t.tipoOperacion.toUpperCase() === tipoFilter.toUpperCase());
     }
 
     setFilteredTransacciones(filtered);
@@ -84,7 +84,7 @@ export default function TransaccionesPage() {
     {
       header: "Tipo",
       accessor: ((row: Transaccion) => (
-        <Badge variant={row.tipoOperacion === "Crédito" ? "success" : "error"}>
+        <Badge variant="info">
           {row.tipoOperacion}
         </Badge>
       )) as any,
@@ -94,10 +94,10 @@ export default function TransaccionesPage() {
       accessor: ((row: Transaccion) => (
         <span
           className={`font-semibold ${
-            row.tipoOperacion === "Crédito" ? "text-green-600" : "text-red-600"
+            row.tipoOperacion.toUpperCase() === "CREDITO" ? "text-green-600" : "text-red-600"
           }`}
         >
-          {row.tipoOperacion === "Crédito" ? "+" : "-"}
+          {row.tipoOperacion.toUpperCase() === "CREDITO" ? "+" : "-"}
           {formatCurrency(row.monto)}
         </span>
       )) as any,
@@ -117,15 +117,6 @@ export default function TransaccionesPage() {
               Consulta todas las operaciones realizadas
             </p>
           </div>
-          <Link href="/transacciones/nueva">
-            <Button
-              style={{ backgroundColor: "#9521B6" }}
-              className="text-white hover:opacity-90"
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              Nueva Transacción
-            </Button>
-          </Link>
         </div>
 
         {error && <ErrorMessage message={error} onRetry={fetchTransacciones} />}
@@ -139,15 +130,14 @@ export default function TransaccionesPage() {
           />
 
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground" />
             <select
               value={tipoFilter}
               onChange={(e) => setTipoFilter(e.target.value as any)}
               className="rounded-md border border-input bg-background px-3 py-2 text-sm"
             >
               <option value="all">Todos los tipos</option>
-              <option value="Crédito">Crédito</option>
-              <option value="Débito">Débito</option>
+              <option value="CREDITO">Crédito</option>
+              <option value="DEBITO">Débito</option>
             </select>
           </div>
         </div>

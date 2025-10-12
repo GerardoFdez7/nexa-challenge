@@ -16,7 +16,7 @@ interface CuentaCardProps {
 }
 
 export function CuentaCard({ cuenta, onClick }: CuentaCardProps) {
-  const isActiva = cuenta.estatus.toLowerCase() === "activa";
+  const isActiva = cuenta.estatusCuenta?.toLowerCase() === "activa";
 
   return (
     <Card
@@ -32,20 +32,20 @@ export function CuentaCard({ cuenta, onClick }: CuentaCardProps) {
             className="rounded-full p-3"
             style={{
               backgroundColor:
-                cuenta.tipoProducto === "Ahorro" ? "#9521B6" : "#011843",
+                cuenta.tipoCuenta === "AHORROS" ? "#9521B6" : "#011843",
               opacity: 0.1,
             }}
           >
             <Wallet
               className="h-6 w-6"
               style={{
-                color: cuenta.tipoProducto === "Ahorro" ? "#9521B6" : "#011843",
+                color: cuenta.tipoCuenta === "AHORROS" ? "#9521B6" : "#011843",
               }}
             />
           </div>
           <div>
             <p className="text-sm text-muted-foreground">
-              Cuenta {cuenta.tipoProducto}
+              Cuenta {cuenta.tipoCuenta}
             </p>
             <p className="font-mono text-lg font-semibold">
               {formatAccountNumber(cuenta.numeroCuenta)}
@@ -53,7 +53,7 @@ export function CuentaCard({ cuenta, onClick }: CuentaCardProps) {
           </div>
         </div>
         <Badge variant={isActiva ? "success" : "default"}>
-          {cuenta.estatus}
+          {cuenta.estatusCuenta}
         </Badge>
       </div>
 
@@ -61,7 +61,7 @@ export function CuentaCard({ cuenta, onClick }: CuentaCardProps) {
         <div>
           <p className="text-sm text-muted-foreground">Saldo Disponible</p>
           <p className="text-2xl font-bold text-foreground">
-            {formatCurrency(cuenta.saldo)}
+            {formatCurrency(cuenta.saldoCuenta)}
           </p>
         </div>
 

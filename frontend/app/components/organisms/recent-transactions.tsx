@@ -36,13 +36,13 @@ export function RecentTransactions({ transacciones }: RecentTransactionsProps) {
             className="flex items-center justify-between border-b pb-4 last:border-0"
           >
             <div className="flex items-center gap-3">
-              {transaccion.tipoOperacion === "Crédito" ? (
+              {transaccion.tipoOperacion.toUpperCase() === "CREDITO" ? (
                 <div className="rounded-full bg-green-100 p-2">
-                  <ArrowDownCircle className="h-5 w-5 text-green-600" />
+                  <ArrowUpCircle className="h-5 w-5 text-green-600" />
                 </div>
               ) : (
                 <div className="rounded-full bg-red-100 p-2">
-                  <ArrowUpCircle className="h-5 w-5 text-red-600" />
+                  <ArrowDownCircle className="h-5 w-5 text-red-600" />
                 </div>
               )}
               <div>
@@ -60,18 +60,18 @@ export function RecentTransactions({ transacciones }: RecentTransactionsProps) {
             <div className="text-right">
               <p
                 className={`font-semibold ${
-                  transaccion.tipoOperacion === "Crédito"
+                  transaccion.tipoOperacion.toUpperCase() === "CREDITO"
                     ? "text-green-600"
                     : "text-red-600"
                 }`}
               >
-                {transaccion.tipoOperacion === "Crédito" ? "+" : "-"}
+                {transaccion.tipoOperacion.toUpperCase() === "CREDITO"
+                  ? "+"
+                  : "-"}
                 {formatCurrency(transaccion.monto)}
               </p>
               <Badge
-                variant={
-                  transaccion.tipoOperacion === "Crédito" ? "success" : "error"
-                }
+                variant="info"
                 className="mt-1"
               >
                 {transaccion.tipoOperacion}

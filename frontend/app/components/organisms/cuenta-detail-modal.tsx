@@ -36,7 +36,7 @@ export function CuentaDetailModal({
 }: CuentaDetailModalProps) {
   if (!cuenta) return null;
 
-  const isActiva = cuenta.estatus.toLowerCase() === "activa";
+  const isActiva = cuenta.estatusCuenta?.toLowerCase() === "activa";
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -50,7 +50,7 @@ export function CuentaDetailModal({
               className="flex h-16 w-16 items-center justify-center rounded-full"
               style={{
                 backgroundColor:
-                  cuenta.tipoProducto === "Ahorro" ? "#9521B6" : "#011843",
+                  cuenta.tipoCuenta === "AHORROS" ? "#9521B6" : "#011843",
                 opacity: 0.1,
               }}
             >
@@ -58,13 +58,13 @@ export function CuentaDetailModal({
                 className="h-8 w-8"
                 style={{
                   color:
-                    cuenta.tipoProducto === "Ahorro" ? "#9521B6" : "#011843",
+                    cuenta.tipoCuenta === "AHORROS" ? "#9521B6" : "#011843",
                 }}
               />
             </div>
             <div>
               <h3 className="text-xl font-bold text-foreground">
-                Cuenta {cuenta.tipoProducto}
+                Cuenta {cuenta.tipoCuenta}
               </h3>
               <p className="font-mono text-sm text-muted-foreground">
                 {formatAccountNumber(cuenta.numeroCuenta)}
@@ -75,7 +75,7 @@ export function CuentaDetailModal({
           <div className="rounded-lg bg-muted/50 p-6">
             <p className="text-sm text-muted-foreground">Saldo Disponible</p>
             <p className="mt-2 text-4xl font-bold text-foreground">
-              {formatCurrency(cuenta.saldo)}
+              {formatCurrency(cuenta.saldoCuenta)}
             </p>
           </div>
 
@@ -93,7 +93,7 @@ export function CuentaDetailModal({
                 <Hash className="h-4 w-4" />
                 <span>Tipo de Producto</span>
               </div>
-              <Badge variant="info">{cuenta.tipoProducto}</Badge>
+              <Badge variant="info">{cuenta.tipoCuenta}</Badge>
             </div>
 
             <div className="space-y-2">
@@ -116,7 +116,7 @@ export function CuentaDetailModal({
                 <span>Estado de la Cuenta</span>
               </div>
               <Badge variant={isActiva ? "success" : "default"}>
-                {cuenta.estatus}
+                {cuenta.estatusCuenta}
               </Badge>
             </div>
           </div>

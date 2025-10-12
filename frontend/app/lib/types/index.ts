@@ -14,10 +14,10 @@ export interface Cliente {
 export interface CuentaSaldo {
   numeroCuenta: string
   nombreCliente: string
-  tipoProducto: "Monetario" | "Ahorro"
+  tipoCuenta: "AHORROS" | "MONETARIO"
   tasaInteres: number
-  saldo: number
-  estatus: string
+  saldoCuenta: number
+  estatusCuenta: string
 }
 
 export interface NuevaTransaccion {

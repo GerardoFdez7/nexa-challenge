@@ -37,8 +37,16 @@ export function formatDateTime(dateString: string): string {
   })
 }
 
-export function formatPercentage(value: number): string {
-  return `${value.toFixed(2)}%`
+export function formatPercentage(value: number | string | null | undefined): string {
+  // Convertir a número y manejar valores nulos/undefined
+  const numValue = Number(value);
+  
+  // Si no es un número válido, retornar 0%
+  if (isNaN(numValue)) {
+    return "0.00%";
+  }
+  
+  return `${numValue.toFixed(2)}%`;
 }
 
 export function formatAccountNumber(accountNumber: string): string {

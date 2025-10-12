@@ -24,7 +24,7 @@ export default function CuentasPage() {
   const [cuentas, setCuentas] = useState<CuentaSaldo[]>([]);
   const [filteredCuentas, setFilteredCuentas] = useState<CuentaSaldo[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [tipoFilter, setTipoFilter] = useState<"all" | "Monetario" | "Ahorro">(
+  const [tipoFilter, setTipoFilter] = useState<"all" | "MONETARIO" | "AHORROS">(
     "all"
   );
   const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
@@ -65,7 +65,7 @@ export default function CuentasPage() {
 
     if (tipoFilter !== "all") {
       filtered = filtered.filter(
-        (cuenta) => cuenta.tipoProducto === tipoFilter
+        (cuenta) => cuenta.tipoCuenta === tipoFilter
       );
     }
 
@@ -79,12 +79,12 @@ export default function CuentasPage() {
 
   // Calcular métricas
   const totalCuentas = cuentas.length;
-  const saldoTotal = cuentas.reduce((sum, cuenta) => sum + cuenta.saldo, 0);
+  const saldoTotal = cuentas.reduce((sum, cuenta) => sum + Number(cuenta.saldoCuenta), 0);
   const cuentasActivas = cuentas.filter(
-    (c) => c.estatus.toLowerCase() === "activa"
+    (c) => c.estatusCuenta && c.estatusCuenta.toLowerCase() === "activa"
   ).length;
   const tasaPromedio =
-    cuentas.reduce((sum, cuenta) => sum + cuenta.tasaInteres, 0) /
+    cuentas.reduce((sum, cuenta) => sum + Number(cuenta.tasaInteres), 0) /
     (cuentas.length || 1);
 
   const columns = [
@@ -103,7 +103,7 @@ export default function CuentasPage() {
     {
       header: "Tipo",
       accessor: ((row: CuentaSaldo) => (
-        <Badge variant="info">{row.tipoProducto}</Badge>
+        <Badge variant="info">{row.tipoCuenta}</Badge>
       )) as any,
     },
     {
@@ -117,7 +117,7 @@ export default function CuentasPage() {
     {
       header: "Saldo",
       accessor: ((row: CuentaSaldo) => (
-        <span className="font-semibold">{formatCurrency(row.saldo)}</span>
+        <span className="font-semibold">{formatCurrency(row.saldoCuenta)}</span>
       )) as any,
       className: "text-right",
     },
@@ -126,10 +126,10 @@ export default function CuentasPage() {
       accessor: ((row: CuentaSaldo) => (
         <Badge
           variant={
-            row.estatus.toLowerCase() === "activa" ? "success" : "default"
+            row.estatusCuenta && row.estatusCuenta.toLowerCase() === "activa" ? "success" : "default"
           }
         >
-          {row.estatus}
+          {row.estatusCuenta || "N/A"}
         </Badge>
       )) as any,
     },
@@ -185,7 +185,7 @@ export default function CuentasPage() {
             placeholder="Buscar por número de cuenta o cliente..."
             value={searchTerm}
             onChange={setSearchTerm}
-            className="sm:max-w-md"
+            className="sm:max-w-xl"
           />
 
           <div className="flex items-center gap-2">
@@ -195,8 +195,8 @@ export default function CuentasPage() {
               className="rounded-md border border-input bg-background px-3 py-2 text-sm"
             >
               <option value="all">Todos los tipos</option>
-              <option value="Monetario">Monetario</option>
-              <option value="Ahorro">Ahorro</option>
+              <option value="MONETARIO">Monetario</option>
+              <option value="AHORROS">Ahorro</option>
             </select>
 
             <div className="flex rounded-md border">

@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { apiService } from "@/services/api";
 import type { Transaccion } from "@/lib/types";
 import { formatCurrency, formatDateTime } from "@/lib/utils/format";
-import { ArrowLeft, Filter } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { format, subDays } from "date-fns";
 
 export default function ClienteTransaccionesPage() {
@@ -75,7 +75,7 @@ export default function ClienteTransaccionesPage() {
       setFilteredTransacciones(transacciones);
     } else {
       setFilteredTransacciones(
-        transacciones.filter((t) => t.tipoOperacion === tipoFilter)
+        transacciones.filter((t) => t.tipoOperacion.toUpperCase() === tipoFilter.toUpperCase())
       );
     }
   }, [tipoFilter, transacciones]);
@@ -98,7 +98,7 @@ export default function ClienteTransaccionesPage() {
     {
       header: "Tipo",
       accessor: ((row: Transaccion) => (
-        <Badge variant={row.tipoOperacion === "Crédito" ? "success" : "error"}>
+        <Badge variant="info">
           {row.tipoOperacion}
         </Badge>
       )) as any,
@@ -108,10 +108,10 @@ export default function ClienteTransaccionesPage() {
       accessor: ((row: Transaccion) => (
         <span
           className={`font-semibold ${
-            row.tipoOperacion === "Crédito" ? "text-green-600" : "text-red-600"
+            row.tipoOperacion.toUpperCase() === "CREDITO" ? "text-green-600" : "text-red-600"
           }`}
         >
-          {row.tipoOperacion === "Crédito" ? "+" : "-"}
+          {row.tipoOperacion.toUpperCase() === "CREDITO" ? "+" : "-"}
           {formatCurrency(row.monto)}
         </span>
       )) as any,
@@ -159,15 +159,14 @@ export default function ClienteTransaccionesPage() {
           />
 
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground" />
             <select
               value={tipoFilter}
               onChange={(e) => setTipoFilter(e.target.value as any)}
               className="rounded-md border border-input bg-background px-3 py-2 text-sm"
             >
               <option value="all">Todos los tipos</option>
-              <option value="Crédito">Crédito</option>
-              <option value="Débito">Débito</option>
+              <option value="CREDITO">Crédito</option>
+              <option value="DEBITO">Débito</option>
             </select>
           </div>
         </div>

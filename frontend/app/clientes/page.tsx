@@ -80,7 +80,9 @@ export default function ClientesPage() {
     {
       header: "Sexo",
       accessor: ((row: Cliente) => (
-        <Badge variant="info">{row.sexo}</Badge>
+        <Badge variant={row.sexo === "MASCULINO" ? "info" : "warning"}>
+          {row.sexo}
+        </Badge>
       )) as any,
     },
     {
