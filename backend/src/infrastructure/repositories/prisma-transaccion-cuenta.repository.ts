@@ -64,7 +64,19 @@ export class PrismaTransaccionCuentaRepository implements TransaccionCuentaRepos
   }
 
   async findAll(): Promise<TransaccionCuenta[]> {
-    const transacciones = await this.prismaService.client.transaccionCuenta.findMany();
+    const transacciones = await this.prismaService.client.transaccionCuenta.findMany({
+      include: {
+        cuenta: {
+          include: {
+            cliente: true
+          }
+        },
+        codigoOperacion: true
+      },
+      orderBy: {
+        fechaTransaccion: 'desc'
+      }
+    });
 
     return transacciones.map((transaccion: any) => TransaccionCuenta.fromPersistence({
       id: transaccion.id,
@@ -81,16 +93,22 @@ export class PrismaTransaccionCuentaRepository implements TransaccionCuentaRepos
     fechaInicio: Date,
     fechaFin: Date
   ): Promise<any[]> {
+    const whereClause: any = {
+      fechaTransaccion: {
+        gte: fechaInicio,
+        lte: fechaFin
+      }
+    };
+
+    // Solo agregar filtro de cliente si se proporciona un clienteId
+    if (clienteId && clienteId.trim() !== "") {
+      whereClause.cuenta = {
+        clienteId: clienteId
+      };
+    }
+
     return await this.prismaService.client.transaccionCuenta.findMany({
-      where: {
-        cuenta: {
-          clienteId: clienteId
-        },
-        fechaTransaccion: {
-          gte: fechaInicio,
-          lte: fechaFin
-        }
-      },
+      where: whereClause,
       include: {
         cuenta: {
           include: {

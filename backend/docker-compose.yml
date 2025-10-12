@@ -33,9 +33,9 @@ services:
     environment:
       NODE_ENV: development
       DATABASE_URL: mysql://nexa_user:nexa_password@mysql:3306/nexa_banking
-      PORT: 3000
+      PORT: 3001
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - .:/home/node/app
       - /home/node/app/node_modules

@@ -40,7 +40,7 @@ Crear un archivo `.env` en la carpeta `backend` con el siguiente contenido:
 
 ```env
 DATABASE_URL="mysql://root:password@localhost:3306/nexa_banking"
-PORT=3000
+PORT=3001
 NODE_ENV=development
 ```
 

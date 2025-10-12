@@ -51,9 +51,9 @@ docker-compose ps
 
 **URLs disponibles:**
 
-- 🌐 **API**: http://localhost:3000
+- 🌐 **API**: http://localhost:3001
 - 📊 **phpMyAdmin**: http://localhost:8080
-- 📖 **API Explorer**: http://localhost:3000/explorer
+- 📖 **API Explorer**: http://localhost:3001/explorer
 
 ### 💻 Ejecución Local
 
@@ -150,7 +150,7 @@ npx prisma generate         # Generar cliente + diagrama ER
 | `GET`  | `/productos`                   | Listar productos bancarios |
 | `GET`  | `/cuentas`                     | Listar cuentas             |
 
-📖 **Documentación completa**: http://localhost:3000/explorer
+📖 **Documentación completa**: http://localhost:3001/explorer
 
 ## 🔧 Configuración
 
@@ -159,7 +159,7 @@ npx prisma generate         # Generar cliente + diagrama ER
 ```env
 DATABASE_URL="mysql://user:password@host:port/database"
 NODE_ENV=development
-PORT=3000
+PORT=3001
 ```
 
 ### **Docker Compose Services**

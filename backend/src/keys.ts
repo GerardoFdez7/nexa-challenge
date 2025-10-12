@@ -8,6 +8,7 @@ import {ConsultarSaldosCuentasUseCase} from "./application/queries/saldos-cuenta
 import {ConsultarTransaccionesClienteUseCase} from "./application/queries/transacciones-cliente.query";
 import {RegistrarTransaccionUseCase} from "./application/commands/registrar-transaccion.create";
 import {ConsultarTodosClientesUseCase} from "./application/queries/todos-clientes.query";
+import {ConsultarTodasTransaccionesUseCase} from "./application/queries/todas-transacciones.query";
 
 // Database Service
 export const PRISMA_SERVICE = BindingKey.create<PrismaService>("services.PrismaService");
@@ -39,4 +40,7 @@ export const REGISTRAR_TRANSACCION_USE_CASE = BindingKey.create<RegistrarTransac
 );
 export const CONSULTAR_TODOS_CLIENTES_USE_CASE = BindingKey.create<ConsultarTodosClientesUseCase>(
   "usecases.ConsultarTodosClientesUseCase",
+);
+export const CONSULTAR_TODAS_TRANSACCIONES_USE_CASE = BindingKey.create<ConsultarTodasTransaccionesUseCase>(
+  "usecases.ConsultarTodasTransaccionesUseCase",
 );

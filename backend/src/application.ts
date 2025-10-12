@@ -16,6 +16,7 @@ import {ConsultarSaldosCuentasUseCase} from "./application/queries/saldos-cuenta
 import {ConsultarTransaccionesClienteUseCase} from "./application/queries/transacciones-cliente.query";
 import {RegistrarTransaccionUseCase} from "./application/commands/registrar-transaccion.create";
 import {ConsultarTodosClientesUseCase} from "./application/queries/todos-clientes.query";
+import {ConsultarTodasTransaccionesUseCase} from "./application/queries/todas-transacciones.query";
 import {
   PRISMA_SERVICE,
   CUENTA_REPOSITORY,
@@ -26,6 +27,7 @@ import {
   CONSULTAR_TRANSACCIONES_CLIENTE_USE_CASE,
   REGISTRAR_TRANSACCION_USE_CASE,
   CONSULTAR_TODOS_CLIENTES_USE_CASE,
+  CONSULTAR_TODAS_TRANSACCIONES_USE_CASE,
 } from "./keys";
 
 export {ApplicationConfig};
@@ -78,5 +80,6 @@ export class NexaApplication extends BootMixin(RepositoryMixin(RestApplication))
     );
     this.bind(REGISTRAR_TRANSACCION_USE_CASE).toClass(RegistrarTransaccionUseCase);
     this.bind(CONSULTAR_TODOS_CLIENTES_USE_CASE).toClass(ConsultarTodosClientesUseCase);
+    this.bind(CONSULTAR_TODAS_TRANSACCIONES_USE_CASE).toClass(ConsultarTodasTransaccionesUseCase);
   }
 }
