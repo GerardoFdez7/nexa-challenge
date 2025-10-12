@@ -9,6 +9,3 @@ cmd = "chmod +x start.sh && ./start.sh"
 
 [variables]
 NODE_ENV = "production"
-
-[providers]
-mysql = "mysql"
