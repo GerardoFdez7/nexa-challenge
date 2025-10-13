@@ -81,7 +81,7 @@ La aplicación está desplegada y disponible en producción! [nexa-challenge.ver
 
 ```bash
 # 1️⃣ Clonar el repositorio
-git clone <repository-url>
+git clone https://github.com/GerardoFdez7/nexa-challenge.git
 
 # 2️⃣ Levantar todos los servicios
 docker-compose up
