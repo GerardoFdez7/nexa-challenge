@@ -54,8 +54,8 @@
 ## 🎬 Video Explicativo del Proyecto
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=PLACEHOLDER">
-    <img src="https://img.youtube.com/vi/PLACEHOLDER/maxresdefault.jpg" alt="Nexa Banking Demo" />
+  <a href="https://youtu.be/Ms0EHUHGRmo?t=600">
+    <img src="https://img.youtube.com/vi/Ms0EHUHGRmo/maxresdefault.jpg" alt="Nexa Banking Demo" />
   </a>
 </p>
 
@@ -79,11 +79,13 @@ La aplicación está desplegada y disponible en producción! [nexa-challenge.ver
 
 ### Levantamiento Completo en 2 Pasos
 
+1. Clonar el repositorio
 ```bash
-# 1️⃣ Clonar el repositorio
 git clone https://github.com/GerardoFdez7/nexa-challenge.git
+```
 
-# 2️⃣ Levantar todos los servicios
+2. Levantar todos los servicios
+```bash
 docker-compose up
 ```
 
